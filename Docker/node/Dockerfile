@@ -1,5 +1,5 @@
 FROM node:19-alpine3.16
 
-RUN yarn install --frozen-lockfile
+WORKDIR /home/node/node_hobbys/src
 
-CMD [ "yarn", "dev" ]
+CMD [ "yarn", "start" ]
