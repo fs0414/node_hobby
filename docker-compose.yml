@@ -12,7 +12,6 @@ services:
     environment:
       - NODE_ENV=development
     command: yarn init && yarn install --frozen-lockfile
-    # working_dir: /home/node/node_hobbys
     stdin_open: true
     tty: true
 
