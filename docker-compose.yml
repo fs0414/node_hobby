@@ -21,6 +21,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+      POSTGRES_DB: express_db
     working_dir: /home/node/node_hobbys/src
     volumes:
       - ./postgres-data:/var/lib/postgres/data
