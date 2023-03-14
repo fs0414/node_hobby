@@ -24,6 +24,7 @@ services:
       - node-db-volume:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_USER: admin
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: admin
