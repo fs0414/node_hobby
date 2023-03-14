@@ -16,6 +16,9 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed/user.ts"
+  },
   "scripts": {
     "start": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
