@@ -7,7 +7,6 @@ services:
       context: ./Docker/node
     ports:
       - 3000:3000
-      - $STUDIO_POST:5555
     volumes:
       - ./src:/home/node/node_hobbys/src
     environment:
