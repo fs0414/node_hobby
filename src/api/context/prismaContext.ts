@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+export const prismaContext = new PrismaClient();
+
 // export type typeContext = {
 //   prisma: PrismaClient;
 // };
@@ -9,5 +11,3 @@ import { PrismaClient } from "@prisma/client";
 //     prisma: new PrismaClient(),
 //   };
 // };
-
-export const prismaContext = new PrismaClient();
