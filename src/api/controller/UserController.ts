@@ -1,11 +1,22 @@
 import { Request, Response } from "express";
 
-export const UsersGet = (_req: Request, res: Response) => {
-  console.log("UsersGet");
+const { prismaContext } = require("../context/prismaContext");
+
+export const UsersGet = async (_req: Request, res: Response) => {
+  const allUsers = await prismaContext.user.findMany();
+  // const allUsers = await
   return res.status(200).send({
-    message: "UsersGet",
+    message: allUsers,
   });
 };
+
+// main()
+//   .catch((e) => {
+//     throw e;
+//   })
+//   .finally(async () => {
+//     await prismaContext.$disconnect();
+//   });
 
 // const prisma = new PrismaClient();
 
