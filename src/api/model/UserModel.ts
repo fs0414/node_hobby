@@ -1,6 +1,6 @@
 const { prismaContext } = require("../context/prismaContext");
 
-export const UsersGetModel = async () => {
+export const usersGetModel = async () => {
   const allUsers = await prismaContext.user.findMany();
 
   return allUsers;

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { UsersGet } = require("../api/controller/UserController");
 
-router.get("/users", UsersGet);
+router.use("/auth", require("./auth/auth"));
 
 module.exports = router;
