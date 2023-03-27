@@ -1,21 +1,19 @@
-import { Role } from "@prisma/client";
+import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-const secret_key = "jwt_secret_key";
+const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
-export type TypeUser = {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  role: Role;
-};
+// auth/register
 
 export const hashingPassword = async (password: string): Promise<string> => {
   const hashed = await bcrypt.hash(password, 10);
   return hashed;
 };
+
+// auth/login
 
 export const compareCheck = async (
   password: string,
@@ -25,8 +23,8 @@ export const compareCheck = async (
   return result;
 };
 
-export const jwtSign = async (user: TypeUser): Promise<string> => {
-  const token = await jwt.sign({ password: user.password }, secret_key, {
+export const jwtSign = async (user: User): Promise<string> => {
+  const token = await jwt.sign({ password: user.password }, jwtSecret, {
     expiresIn: "3h",
   });
 

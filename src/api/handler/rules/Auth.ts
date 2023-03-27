@@ -1,6 +1,7 @@
-import { check, validationResult } from "express-validator";
+import { check, body } from "express-validator";
+import { prismaContext } from "../../context/prismaContext";
 
-export const authRegisterRules = [
+export const authRegisterRule = [
   check("name")
     .not()
     .isEmpty()
@@ -14,14 +15,39 @@ export const authRegisterRules = [
     .isEmpty()
     .withMessage("email is required")
     .isEmail()
-    .withMessage("Invalid email"),
-  check("password")
-    .not()
-    .isEmpty()
+    .withMessage("Invalid email")
+    .custom(async (value) => {
+      const existedUser = await prismaContext.user.findUnique({
+        where: {
+          email: value,
+        },
+      });
+      if (existedUser) {
+        throw new Error("email already exists");
+      }
+    }),
+  body("password")
+    .notEmpty()
     .withMessage("password is required")
     .isLength({ min: 5 })
     .withMessage("password mast be at least 5 characters")
     .isLength({ max: 50 })
     .withMessage("name mast be at largest 50 characters"),
   check("role").not().isEmpty().withMessage("role is required"),
+];
+
+export const authLoginRule = [
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("Invalid email"),
+  body("password")
+    .not()
+    .notEmpty()
+    .withMessage("password is required")
+    .isLength({ min: 5 })
+    .withMessage("password mast be at least 5 characters")
+    .isLength({ max: 50 })
+    .withMessage("name mast be at largest 50 characters"),
 ];
