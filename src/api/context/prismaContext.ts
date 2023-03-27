@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 export const prismaContext = new PrismaClient();
 
-// export type typeContext = {
+// type typeContext = {
 //   prisma: PrismaClient;
 // };
 
