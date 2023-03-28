@@ -21,7 +21,10 @@ export const authenticateToken = async (
     const token = authHeader.split(" ")[1];
 
     const payload = await verifyToken(token);
+
     console.log({ payload });
+
+    console.log("payload.email", payload.email);
 
     next();
   } catch (error: any) {
@@ -32,6 +35,8 @@ export const authenticateToken = async (
 };
 
 const verifyToken = async (token: string) => {
+  console.log({ token });
   const decodedToken = jwt.verify(token, jwtSecret);
+  console.log({ decodedToken });
   return decodedToken;
 };

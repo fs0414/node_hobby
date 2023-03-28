@@ -25,7 +25,7 @@ export const compareCheck = async (
 
 export const jwtSign = async (user: User): Promise<string> => {
   const token = await jwt.sign({ password: user.password }, jwtSecret, {
-    expiresIn: "3h",
+    expiresIn: "24h",
   });
 
   return token;
