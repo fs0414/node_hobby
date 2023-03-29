@@ -5,7 +5,9 @@ import { prismaContext } from "../context/prismaContext";
 // users
 
 export const usersGet = async (): Promise<User[]> => {
-  const allUsers = await prismaContext.user.findMany();
+  const allUsers = await prismaContext.user.findMany({
+    include: { posts: true },
+  });
 
   return allUsers;
 };

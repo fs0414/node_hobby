@@ -5,3 +5,25 @@ export const getPosts = async (): Promise<Post[]> => {
   const allPosts = await prismaContext.post.findMany();
   return allPosts;
 };
+
+type typeStorePost = {
+  title: string;
+  content: string;
+  userId: number;
+};
+
+export const storePost = async (
+  title: string,
+  content: string,
+  userId: number
+): Promise<typeStorePost> => {
+  const newPost = await prismaContext.post.create({
+    data: {
+      title,
+      content,
+      userId,
+    },
+  });
+
+  return newPost;
+};
