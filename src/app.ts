@@ -1,18 +1,15 @@
-const { PrismaClient } = require("@prisma/client");
-// import { PrismaClient } from "@prisma/client";
+import express, { Application, Request, Response } from "express";
+// const router = express.Router();
+export const app: Application = express();
+// const APIrouter = require("./router/index");
 
-const prisma = new PrismaClient();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-async function main() {
-  const allUsers = await prisma.user.findMany();
-  console.log({ allUsers });
-  console.log("prisma gosurori");
-}
+app.use("/api", require("./router/index"));
 
-main()
-  .catch((e) => {
-    throw e;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
+app.get("/", (_req: Request, res: Response) => {
+  return res.status(200).send({
+    message: "Hello World!",
   });
+});
