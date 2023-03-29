@@ -12,6 +12,12 @@ type typeStorePost = {
   userId: number;
 };
 
+// type typeUpdatePost = {
+//   id: number;
+//   title: string;
+//   content: string;
+// };
+
 export const storePost = async (
   title: string,
   content: string,
@@ -26,4 +32,17 @@ export const storePost = async (
   });
 
   return newPost;
+};
+
+export const updatePost = async (
+  id: number,
+  title: string,
+  content: string
+): Promise<any> => {
+  const post = await prismaContext.post.update({
+    where: { id },
+    data: { title, content },
+  });
+
+  return post;
 };
