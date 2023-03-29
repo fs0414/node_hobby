@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { prismaContext } from "../../context/prismaContext";
 const jwt = require("jsonwebtoken");
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,9 +23,18 @@ export const authenticateToken = async (
 
     const payload = await verifyToken(token);
 
-    console.log({ payload });
+    const user = prismaContext.user.findUnique({
+      where: {
+        email: payload.email,
+      },
+      select: {
+        id: true,
+      },
+    });
 
-    console.log("payload.email", payload.email);
+    if (!user) {
+      throw new Error("authenticate not");
+    }
 
     next();
   } catch (error: any) {
@@ -35,8 +45,6 @@ export const authenticateToken = async (
 };
 
 const verifyToken = async (token: string) => {
-  console.log({ token });
   const decodedToken = jwt.verify(token, jwtSecret);
-  console.log({ decodedToken });
   return decodedToken;
 };

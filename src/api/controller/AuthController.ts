@@ -45,7 +45,7 @@ export class AuthController {
         throw new Error("not compare password");
       }
 
-      const token = await jwtSign(existedUserPassword);
+      const token = await jwtSign(email);
 
       if (!token) throw new Error("not create token");
 

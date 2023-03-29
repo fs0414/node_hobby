@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -23,10 +22,13 @@ export const compareCheck = async (
   return result;
 };
 
-export const jwtSign = async (user: User): Promise<string> => {
-  const token = await jwt.sign({ password: user.password }, jwtSecret, {
+export const jwtSign = async (email: string): Promise<string> => {
+  const payload = { email: email };
+  console.log({ payload });
+  const options = {
     expiresIn: "24h",
-  });
+  };
+  const token = await jwt.sign(payload, jwtSecret, options);
 
   return token;
 };
