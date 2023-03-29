@@ -34,6 +34,7 @@ export const updatePost = async (
   const post = await prismaContext.post.update({
     where: { id },
     data: { title, content },
+    include: { user: true },
   });
 
   return post;

@@ -11,7 +11,7 @@ export class PostsController {
     const posts = await getPosts();
 
     res.status(200).json({
-      message: "getAll success",
+      message: "get posts success",
       posts,
     });
   }
@@ -19,14 +19,14 @@ export class PostsController {
   async createPost(req: Request, res: Response): Promise<void> {
     try {
       const { title, content, userId } = req.body;
-      const newPost = await storePost(title, content, userId);
+      const post = await storePost(title, content, userId);
 
-      if (!newPost) {
+      if (!post) {
         throw new Error("not create post");
       }
       res.status(201).json({
-        message: "create success",
-        newPost,
+        message: "create post success",
+        post,
       });
     } catch (error: any) {
       res.status(401).json({
@@ -38,9 +38,12 @@ export class PostsController {
   async putPost(req: Request, res: Response): Promise<void> {
     try {
       const id = parseInt(req.params.id);
-      console.log(req.body);
       const { title, content } = req.body;
       const post = await updatePost(id, title, content);
+
+      if (!post) {
+        throw new Error("not update post");
+      }
 
       res.status(201).json({
         message: "update post success",
@@ -57,6 +60,11 @@ export class PostsController {
     const id = parseInt(req.params.id);
     try {
       const post = await deletePost(id);
+
+      if (!post) {
+        throw new Error("not delete post");
+      }
+
       res.status(200).json({
         message: "delete post success",
         post,
