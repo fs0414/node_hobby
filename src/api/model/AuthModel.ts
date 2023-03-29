@@ -4,7 +4,7 @@ import { prismaContext } from "../context/prismaContext";
 
 // users
 
-export const usersGet = async () => {
+export const usersGet = async (): Promise<User[]> => {
   const allUsers = await prismaContext.user.findMany();
 
   return allUsers;
