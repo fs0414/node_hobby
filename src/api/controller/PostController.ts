@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { getPosts, storePost, updatePost } from "../model/PostModel";
+import {
+  getPosts,
+  storePost,
+  updatePost,
+  deletePost,
+} from "../model/PostModel";
 
 export class PostsController {
   async getPosts(_req: Request, res: Response) {
@@ -43,6 +48,21 @@ export class PostsController {
       });
     } catch (error: any) {
       res.status(491).json({
+        message: error.message,
+      });
+    }
+  }
+
+  async destroyPost(req: Request, res: Response): Promise<void> {
+    const id = parseInt(req.params.id);
+    try {
+      const post = await deletePost(id);
+      res.status(200).json({
+        message: "delete post success",
+        post,
+      });
+    } catch (error: any) {
+      res.status(401).json({
         message: error.message,
       });
     }
