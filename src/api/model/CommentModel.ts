@@ -29,3 +29,29 @@ export const storeComment = async (
   });
   return comment;
 };
+
+export const updateComment = async (
+  id: string,
+  content: string
+): Promise<Comment> => {
+  const comment = await prismaContext.comment.update({
+    where: {
+      id: parseInt(id),
+    },
+    data: {
+      content,
+    },
+  });
+
+  return comment;
+};
+
+export const destroyComment = async (id: string): Promise<Comment> => {
+  const comment = await prismaContext.comment.delete({
+    where: {
+      id: parseInt(id),
+    },
+  });
+
+  return comment;
+};

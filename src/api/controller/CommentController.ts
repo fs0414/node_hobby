@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
-import { allComment, getComment, storeComment } from "../model/CommentModel";
+import {
+  allComment,
+  destroyComment,
+  getComment,
+  storeComment,
+  updateComment,
+} from "../model/CommentModel";
 
 export class CommentController {
   async getComments(_req: Request, res: Response): Promise<void> {
@@ -27,6 +33,36 @@ export class CommentController {
       res.status(201).json({
         message: "post comment success",
         comment,
+      });
+    } catch (error: any) {
+      res.status(401).json({
+        message: error.message,
+      });
+    }
+  }
+  async putComment(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { content } = req.body;
+      const comment = await updateComment(id, content);
+
+      res.status(201).json({
+        message: "put comment success",
+        comment,
+      });
+    } catch (error: any) {
+      res.status(401).json({
+        message: error.message,
+      });
+    }
+  }
+
+  async deleteComment(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      await destroyComment(id);
+      res.status(204).json({
+        message: "delete comment success",
       });
     } catch (error: any) {
       res.status(401).json({
