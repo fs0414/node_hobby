@@ -5,7 +5,12 @@ const {
   // alreadyUserCheck,
   registerUser,
 } = require("../model/AuthModel");
-const { hashingPassword, jwtSign, compareCheck } = require("../service/auth");
+// import { hashingPassword, jwtSign, compareCheck } from "../service/AuthService";
+const {
+  hashingPassword,
+  jwtSign,
+  compareCheck,
+} = require("../service/AuthService");
 
 export class AuthController {
   async usersGet(_req: Request, res: Response) {

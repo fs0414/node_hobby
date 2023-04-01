@@ -1,3 +1,4 @@
+// import { User } from "@prisma/client";
 import { Request, Response } from "express";
 import {
   getPosts,
@@ -6,9 +7,41 @@ import {
   deletePost,
 } from "../model/PostModel";
 
-export class PostsController {
-  async getPosts(_req: Request, res: Response) {
+// type typeGetPosts = {
+//   post: {
+//     id: number;
+//     title: string;
+//     content: string;
+//     userId: number;
+//     user: {
+//       name: string;
+//     };
+//     comments: {
+//       content: string;
+//     };
+//   };
+// };
+
+export class PostController {
+  async getPosts(_req: Request, res: Response): Promise<void> {
     const posts = await getPosts();
+
+    // const responseJson: typeGetPosts[] = posts.map((post) => {
+    //   return {
+    //     post: {
+    //       id: post.id,
+    //       title: post.title,
+    //       content: post.content,
+    //       userId: post.userId,
+    //       user: {
+    //         name: post.user.name,
+    //       },
+    //       comments: {
+    //         postId: post.comments[],
+    //       },
+    //     },
+    //   };
+    // });
 
     res.status(200).json({
       message: "get posts success",
