@@ -7,8 +7,8 @@ const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
 // auth/register
 
-export const hashingPassword = async (password: string): Promise<string> => {
-  const hashed = await bcrypt.hash(password, 10);
+export const hashingPassword = async (isPassword: string): Promise<string> => {
+  const hashed = await bcrypt.hash(isPassword, 10);
   return hashed;
 };
 

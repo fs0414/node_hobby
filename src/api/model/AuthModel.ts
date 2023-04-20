@@ -1,7 +1,5 @@
 import { User } from "@prisma/client";
 import { prismaContext } from "../context/prismaContext";
-// import { typeRegisterReq } from "../../types/auth/index";
-
 // users
 
 export const usersGet = async (): Promise<User[]> => {
@@ -18,13 +16,13 @@ export const registerUser = async (
   body: User,
   hashedPassword: string
 ): Promise<User> => {
-  let { name, email, password, role } = body;
-  password = hashedPassword;
+  let { name, email, isPassword, role } = body;
+  isPassword = hashedPassword;
   const user = await prismaContext.user.create({
     data: {
       name,
       email,
-      password,
+      isPassword,
       role,
     },
   });
@@ -50,11 +48,11 @@ export const fetchUserPassword = async (
       email: email,
     },
     select: {
-      password: true,
+      isPassword: true,
     },
   });
 
-  const existedUserPassword = resultUser?.password;
+  const existedUserPassword = resultUser?.isPassword;
 
   return existedUserPassword;
 };

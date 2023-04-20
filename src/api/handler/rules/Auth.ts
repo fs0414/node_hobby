@@ -26,28 +26,28 @@ export const authRegisterRule = [
         throw new Error("email already exists");
       }
     }),
-  body("password")
+  body("isPassword")
     .notEmpty()
-    .withMessage("password is required")
-    .isLength({ min: 5 })
-    .withMessage("password mast be at least 5 characters")
-    .isLength({ max: 50 })
+    .withMessage("isPassword is required")
+    .isLength({ min: 6 })
+    .withMessage("isPassword mast be at least 6 characters")
+    .isLength({ max: 255 })
     .withMessage("name mast be at largest 50 characters"),
   check("role").not().isEmpty().withMessage("role is required"),
 ];
 
 export const authLoginRule = [
-  body("email")
-    .notEmpty()
-    .withMessage("email is required")
-    .isEmail()
-    .withMessage("Invalid email"),
-  body("password")
+  // body("email")
+  //   .notEmpty()
+  //   .withMessage("email is required")
+  //   .isEmail()
+  //   .withMessage("Invalid email"),
+  body("isPassword")
     .not()
     .notEmpty()
-    .withMessage("password is required")
-    .isLength({ min: 5 })
-    .withMessage("password mast be at least 5 characters")
-    .isLength({ max: 50 })
+    .withMessage("isPassword is required")
+    .isLength({ min: 6 })
+    .withMessage("isPassword mast be at least 6 characters")
+    .isLength({ max: 255 })
     .withMessage("name mast be at largest 50 characters"),
 ];
