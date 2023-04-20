@@ -42,6 +42,8 @@ export const registerPoolUser = async (
   return poolUser;
 };
 
+// cognito signin
+
 // export const cognitoLogin = (email: string, isPassword: string) => {
 //   const params = {
 //     AuthFlow: "EMAIL_PASSWORD_FLOW",
