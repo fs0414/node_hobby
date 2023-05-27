@@ -20,6 +20,7 @@ const {
 
 export class AuthController {
   async usersGet(_req: Request, res: Response) {
+    console.log("psotman connect");
     const allUsers = await usersGet();
 
     const poolUsers = await poolUsersGet();
@@ -32,19 +33,20 @@ export class AuthController {
 
   async register(req: Request, res: Response): Promise<void> {
     try {
-      const { name, email, isPassword, role } = req.body;
+      const { userName, email, isPassword, role } = req.body;
+
+      const poolUser = await registerPoolUser(
+        userName,
+        email,
+        isPassword,
+        role
+      );
+
       const hashedPassword = await hashingPassword(isPassword);
 
       const user = await registerUser(req.body, hashedPassword);
 
       if (!user) throw new Error("not register user");
-
-      const poolUser = await registerPoolUser(
-        name,
-        email,
-        role,
-        hashedPassword
-      );
 
       res.status(201).json({ user, poolUser });
     } catch (error: any) {
@@ -56,9 +58,9 @@ export class AuthController {
 
   async login(req: Request, res: Response): Promise<void> {
     try {
-      const { email, isPassword } = req.body;
+      const { userName, isPassword } = req.body;
 
-      const existedUserPassword = await fetchUserPassword(email);
+      const existedUserPassword = await fetchUserPassword(userName);
 
       if (existedUserPassword === null) throw new Error("not exited user");
 
@@ -68,15 +70,20 @@ export class AuthController {
         throw new Error("not compare password");
       }
 
-      // const cogitoLoginUser = await cognitoLogin(email, isPassword);
+      // const cogitoLoginUser = await cognitoLogin(userName, isPassword);
+
+      // console.log({ cogitoLoginUser });
 
       // const accessToken = cogitoLoginUser.AuthenticationResult.AccessToken;
 
-      const token = await jwtSign(email);
+      // console.log({ accessToken });
+
+      const token = await jwtSign(userName);
 
       if (!token) throw new Error("not create token");
 
       res.status(201).json({ token });
+      // res.status(201).json({ token, cogitoLoginUser });
     } catch (error: any) {
       res.json({
         message: error.message,

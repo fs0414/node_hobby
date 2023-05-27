@@ -16,11 +16,11 @@ export const registerUser = async (
   body: User,
   hashedPassword: string
 ): Promise<User> => {
-  let { name, email, isPassword, role } = body;
+  let { userName, email, isPassword, role } = body;
   isPassword = hashedPassword;
   const user = await prismaContext.user.create({
     data: {
-      name,
+      userName,
       email,
       isPassword,
       role,
@@ -32,20 +32,22 @@ export const registerUser = async (
 
 // auth/login
 
-export const alreadyUserCheck = async (email: string): Promise<User | null> => {
+export const alreadyUserCheck = async (
+  userName: string
+): Promise<User | null> => {
   return await prismaContext.user.findUnique({
     where: {
-      email: email,
+      userName: userName,
     },
   });
 };
 
 export const fetchUserPassword = async (
-  email: string
+  userName: string
 ): Promise<string | undefined> => {
   const resultUser = await prismaContext.user.findFirst({
     where: {
-      email: email,
+      userName: userName,
     },
     select: {
       isPassword: true,

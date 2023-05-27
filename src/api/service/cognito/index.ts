@@ -1,8 +1,8 @@
 import {
+  InitiateAuthCommand,
   ListUsersCommand,
   SignUpCommand,
   SignUpCommandInput,
-  InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoContext } from "../../../lib/cognitoClient";
 import dotenv from "dotenv";
@@ -19,19 +19,19 @@ export const poolUsersGet = async () => {
 };
 
 export const registerPoolUser = async (
-  name: string,
+  userName: string,
   email: string,
   role: string,
-  hashedPassword: string
+  isPassword: string
 ): Promise<any> => {
   const signUpCommandInput: SignUpCommandInput = {
     ClientId: process.env.COGNITO_CLIENT_ID,
     Username: email,
-    Password: hashedPassword,
+    Password: isPassword,
     UserAttributes: [
-      { Name: "name", Value: name },
+      { Name: "name", Value: userName },
       { Name: "email", Value: email },
-      { Name: "custom:isPassword", Value: hashedPassword },
+      { Name: "custom:isPassword", Value: isPassword },
       { Name: "custom:role", Value: role },
     ],
   };
@@ -42,18 +42,31 @@ export const registerPoolUser = async (
   return poolUser;
 };
 
-// export const cognitoLogin = (email: string, isPassword: string) => {
-//   const params = {
-//     AuthFlow: "EMAIL_PASSWORD_FLOW",
-//     ClientId: process.env.COGNITO_CLIENT_ID,
-//     AuthParameters: {
-//       USERNAME: email,
-//       PASSWORD: isPassword,
-//     },
-//   };
+export const cognitoLogin = async (
+  userName: string,
+  isPassword: string
+): Promise<any> => {
+  const params = {
+    AuthFlow: "USER_PASSWORD_AUTH",
+    ClientId: process.env.COGNITO_CLIENT_ID,
+    AuthParameters: {
+      USERNAME: userName,
+      PASSWORD: isPassword,
+    },
+  };
 
-//   const cognitoClient = cognitoContext();
-//   const command = new InitiateAuthCommand(params);
-//   const cognitoAuth = cognitoClient.send(command);
-//   return cognitoAuth;
-// };
+  const cognitoClient = cognitoContext();
+
+  const cognitoResponse = await cognitoClient.send(
+    new InitiateAuthCommand(params)
+  );
+
+  console.log({ cognitoResponse });
+
+  return cognitoResponse;
+
+  // const cognitoClient = cognitoContext();
+  // const command = new InitiateAuthCommand(params);
+  // const cognitoAuth = cognitoClient.send(command);
+  // return cognitoAuth;
+};
