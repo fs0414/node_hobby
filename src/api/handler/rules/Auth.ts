@@ -2,14 +2,24 @@ import { check, body } from "express-validator";
 import { prismaContext } from "../../context/prismaContext";
 
 export const authRegisterRule = [
-  check("name")
+  check("userName")
     .not()
     .isEmpty()
     .withMessage("name is required")
     .isLength({ min: 3 })
     .withMessage("name mast be at least 3 characters")
     .isLength({ max: 255 })
-    .withMessage("name mast be at largest 3 characters"),
+    .withMessage("name mast be at largest 3 characters")
+    .custom(async (value) => {
+      const existedUser = await prismaContext.user.findUnique({
+        where: {
+          userName: value,
+        },
+      });
+      if (existedUser) {
+        throw new Error("userName already exists");
+      }
+    }),
   check("email")
     .not()
     .isEmpty()
@@ -37,11 +47,14 @@ export const authRegisterRule = [
 ];
 
 export const authLoginRule = [
-  // body("email")
-  //   .notEmpty()
-  //   .withMessage("email is required")
-  //   .isEmail()
-  //   .withMessage("Invalid email"),
+  check("userName")
+    .not()
+    .isEmpty()
+    .withMessage("userName is required")
+    .isLength({ min: 3 })
+    .withMessage("userName mast be at least 3 characters")
+    .isLength({ max: 255 })
+    .withMessage("userName mast be at largest 3 characters"),
   body("isPassword")
     .not()
     .notEmpty()
