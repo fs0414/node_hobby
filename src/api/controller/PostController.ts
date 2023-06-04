@@ -6,21 +6,8 @@ import {
   updatePost,
   deletePost,
 } from "../model/PostModel";
-
-// type typeGetPosts = {
-//   post: {
-//     id: number;
-//     title: string;
-//     content: string;
-//     userId: number;
-//     user: {
-//       name: string;
-//     };
-//     comments: {
-//       content: string;
-//     };
-//   };
-// };
+import cron from "node-cron";
+import { prismaContext } from "../context/prismaContext";
 
 export class PostController {
   async getPosts(_req: Request, res: Response): Promise<void> {
@@ -107,5 +94,12 @@ export class PostController {
         message: error.message,
       });
     }
+  }
+
+  async cronPosts(_req: Request, _res: Response): Promise<void> {
+    cron.schedule("*/20 * * * * *", async () => {
+      const post = await prismaContext.post.findMany();
+      console.log(post);
+    });
   }
 }
