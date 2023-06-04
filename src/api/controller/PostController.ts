@@ -12,7 +12,6 @@ import { prismaContext } from "../context/prismaContext";
 export class PostController {
   async getPosts(_req: Request, res: Response): Promise<void> {
     const posts = await getPosts();
-    // console.log({ posts });
 
     res.status(200).json({
       message: "get posts success",
