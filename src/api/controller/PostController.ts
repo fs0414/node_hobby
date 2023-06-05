@@ -79,10 +79,16 @@ export class PostController {
     }
   }
 
-  async cronPosts(_req: Request, _res: Response): Promise<void> {
-    cron.schedule("*/20 * * * * *", async () => {
-      const post = await prismaContext.post.findMany();
-      console.log(post);
-    });
+  async cronPosts(_req: Request, res: Response): Promise<void> {
+    try {
+      cron.schedule("*/20 * * * * *", async () => {
+        const post = await prismaContext.post.findMany();
+        console.log(post);
+      });
+    } catch (error: any) {
+      res.status(401).json({
+        message: error.message,
+      });
+    }
   }
 }
