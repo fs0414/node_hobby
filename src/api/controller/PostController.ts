@@ -7,7 +7,7 @@ import {
   deletePost,
 } from "../model/PostModel";
 import cron from "node-cron";
-import { prismaContext } from "../context/prismaContext";
+import { prismaContext } from "../../lib/prismaContext";
 
 export class PostController {
   async getPosts(_req: Request, res: Response): Promise<void> {

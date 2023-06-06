@@ -1,4 +1,4 @@
-import { prismaContext } from "../context/prismaContext";
+import { prismaContext } from "../../lib/prismaContext";
 import { Comment } from "@prisma/client";
 
 export const allComment = async () => {

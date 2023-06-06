@@ -1,5 +1,5 @@
 import { Post } from "@prisma/client";
-import { prismaContext } from "../context/prismaContext";
+import { prismaContext } from "../../lib/prismaContext";
 
 export const getPosts = async (): Promise<any> => {
   const allPosts = await prismaContext.$transaction([

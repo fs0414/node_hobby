@@ -2,7 +2,7 @@ import { CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-
 import dotenv from "dotenv";
 dotenv.config();
 
-import { awsConfig } from "../config/aws";
+import { awsConfig } from "./aws";
 
 // export const cognitoClient = new CognitoIdentityProviderClient(awsConfig);
 
