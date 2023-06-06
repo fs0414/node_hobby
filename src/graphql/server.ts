@@ -2,7 +2,7 @@ const { ApolloServer } = require("apollo-server");
 const fs = require("fs");
 const path = require("path");
 import { Post } from "@prisma/client";
-import { prismaContext } from "../api/context/prismaContext";
+import { prismaContext } from "../lib/prismaContext";
 
 const resolvers = {
   Query: {

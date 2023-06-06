@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id  Int@id @default(autoincrement())
+  id Int @id @default(autoincrement())
   userName String @unique
   email String @unique
   isPassword String
@@ -23,6 +23,12 @@ model User {
 enum Role {
   USER
   ADMIN
+}
+
+model googleUser {
+ id Int @id @default(autoincrement())
+ userName String
+ googleId String @unique
 }
 
 model Post {

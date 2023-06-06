@@ -1,5 +1,5 @@
 import { check, body } from "express-validator";
-import { prismaContext } from "../../context/prismaContext";
+import { prismaContext } from "../../../lib/prismaContext";
 
 export const authRegisterRule = [
   check("userName")

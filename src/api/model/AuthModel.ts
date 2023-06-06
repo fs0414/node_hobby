@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { prismaContext } from "../context/prismaContext";
+import { prismaContext } from "../../lib/prismaContext";
 // users
 
 export const usersGet = async (): Promise<User[]> => {
@@ -15,7 +15,7 @@ export const usersGet = async (): Promise<User[]> => {
 export const registerUser = async (
   body: User,
   hashedPassword: string
-): Promise<User> => {
+): Promise<User | any> => {
   let { userName, email, isPassword, role } = body;
   isPassword = hashedPassword;
   const user = await prismaContext.user.create({
@@ -26,8 +26,8 @@ export const registerUser = async (
       role,
     },
   });
-
-  return user;
+  //localhost:3000/auth/google
+  http: return user;
 };
 
 // auth/login

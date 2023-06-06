@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { prismaContext } from "../../context/prismaContext";
+import { prismaContext } from "../../../lib/prismaContext";
 const jwt = require("jsonwebtoken");
 import dotenv from "dotenv";
 dotenv.config();
