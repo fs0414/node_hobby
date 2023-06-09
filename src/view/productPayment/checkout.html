@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <body>
+    <main>
+      <div>
+        <h3>stripe checkout payment</h3>
+      </div>
+      <form
+        action="http://localhost:3000/payment/create-checkout-session"
+        method="post"
+      >
+        <div>
+          <label>priceId</label>
+          <input type="text" name="priceId" />
+        </div>
+        <div>
+          <label>quantity</label>
+          <input type="number" name="quantity" />
+        </div>
+        <button type="submit">pay now</button>
+      </form>
+    </main>
+  </body>
+</html>
