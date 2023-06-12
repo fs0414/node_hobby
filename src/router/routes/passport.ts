@@ -1,9 +1,9 @@
 import express from "express";
-const router = express.Router();
+const apiRouter = express.Router();
 import { PassportController } from "../../api/controller/PassportController";
 
 const passportContext = new PassportController();
 
-router.get("/passport", passportContext.passportLogin);
+apiRouter.get("/passport", passportContext.passportLogin);
 
-module.exports = router;
+module.exports = apiRouter;

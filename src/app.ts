@@ -15,11 +15,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("view"));
 
-app.use("/api", require("./router/index"));
+app.use("", require("./router/index"));
 
 app.get("/", (_req: Request, res: Response) => {
   return res.status(200).send({
-    message: "Hello World!",
+    message: "Hello World with hobby",
   });
 });

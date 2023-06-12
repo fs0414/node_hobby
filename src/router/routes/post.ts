@@ -1,14 +1,14 @@
 import express from "express";
+const apiRouter = express.Router();
 import { PostController } from "../../api/controller/PostController";
-const router = express.Router();
 const { authenticateToken } = require("../../api/handler/middleware/auth");
 
 const postContext = new PostController();
 
-router.get("/posts", authenticateToken, postContext.getPosts);
-router.post("/post", authenticateToken, postContext.createPost);
-router.put("/post/:id", authenticateToken, postContext.putPost);
-router.delete("/post/:id", authenticateToken, postContext.destroyPost);
-router.get("/cron/posts", postContext.cronPosts);
+apiRouter.get("/posts", authenticateToken, postContext.getPosts);
+apiRouter.post("/post", authenticateToken, postContext.createPost);
+apiRouter.put("/post/:id", authenticateToken, postContext.putPost);
+apiRouter.delete("/post/:id", authenticateToken, postContext.destroyPost);
+apiRouter.get("/cron/posts", postContext.cronPosts);
 
-module.exports = router;
+module.exports = apiRouter;

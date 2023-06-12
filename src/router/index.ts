@@ -1,10 +1,12 @@
 import express from "express";
 const router = express.Router();
 
-router.use("/auth", require("./routes/auth"));
-router.use("", require("./routes/post"));
-router.use("", require("./routes/comment"));
-router.use("", require("./routes/s3"));
-router.use("", require("./routes/passport"));
+router.use("/api/auth", require("./routes/auth"));
+router.use("/api", require("./routes/post"));
+router.use("/api", require("./routes/comment"));
+router.use("/api", require("./routes/s3"));
+router.use("/api", require("./routes/passport"));
+router.use("/api", require("./routes/product"));
+router.use("/api", require("./routes/product"));
 
 module.exports = router;

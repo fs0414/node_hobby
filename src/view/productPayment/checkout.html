@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <body>
+    <main>
+      <div>
+        <h3>stripe checkout payment</h3>
+      </div>
+      <form
+        action="http://localhost:3000/api/payment/create-checkout-session"
+        method="post"
+      >
+        <div>
+          <label>priceId</label>
+          <input type="text" name="priceId" />
+        </div>
+        <div>
+          <label>quantity</label>
+          <input type="number" name="quantity" />
+        </div>
+        <button type="submit">pay now</button>
+      </form>
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    padding-left: 180px;
+    padding-top: 120px;
+  }
+</style>
