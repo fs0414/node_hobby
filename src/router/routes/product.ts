@@ -4,8 +4,8 @@ import { ProductController } from "../../api/controller/ProductController";
 
 const productContext = new ProductController();
 
-router.get("/api/customers", productContext.getCustomers);
-router.get("/api/products", productContext.getProducts);
+router.get("/customers", productContext.getCustomers);
+router.get("/products", productContext.getProducts);
 
 router.post(
   "/payment/create-checkout-session",

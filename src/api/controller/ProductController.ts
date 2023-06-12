@@ -26,20 +26,22 @@ export class ProductController {
     });
   }
 
-  async buyCheckoutPayment(req: Request, res: Response): Promise<any> {
-    const { priceId, quantity } = req.body;
+  async buyCheckoutPayment(req: Request, res: Response): Promise<void> {
+    const { name, priceId, quantity, paymentType } = req.body;
+    console.log("name :", name);
     console.log("priceId :", priceId);
     console.log("quantity :", quantity);
+    console.log("paymentType :", paymentType);
 
     try {
       const session = await stripeClient.checkout.sessions.create({
+        payment_method_types: ["card", "konbini"],
         line_items: [
           {
             price: priceId,
             quantity: quantity,
           },
         ],
-        payment_method_types: ["card"],
         mode: "payment",
         success_url: `http://localhost:3000/productPayment/success.html`,
         cancel_url: `http://localhost:3000/productPayment/cancel.html`,
@@ -61,7 +63,7 @@ export class ProductController {
 
     try {
       const session = await stripeClient.checkout.sessions.create({
-        billing_address_collection: "auto",
+        payment_method_types: ["card"],
         line_items: [
           {
             price: priceId,

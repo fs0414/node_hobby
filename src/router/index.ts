@@ -7,7 +7,6 @@ router.use("/api", require("./routes/comment"));
 router.use("/api", require("./routes/s3"));
 router.use("/api", require("./routes/passport"));
 router.use("/api", require("./routes/product"));
-
-router.use("", require("./routes/product"));
+router.use("/api", require("./routes/product"));
 
 module.exports = router;
