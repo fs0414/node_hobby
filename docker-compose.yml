@@ -16,6 +16,17 @@ services:
     stdin_open: true
     tty: true
 
+  next:
+    container_name: next
+    build:
+      context: ./Docker/next
+    ports:
+      - 3030:3030
+    volumes:
+      - ./src:/home/node/node_hobbys/next
+    stdin_open: true
+    tty: true
+
   mysql:
     container_name: express_mysql
     build: ./Docker/mysql
