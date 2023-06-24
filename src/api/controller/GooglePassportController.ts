@@ -5,7 +5,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { prismaContext } from "../../lib/prismaContext";
 import jwt from "jsonwebtoken";
 
-export class PassportController {
+export class GooglePassportController {
   async passportLogin(_req: Request, res: Response): Promise<void> {
     try {
       passport.use(
