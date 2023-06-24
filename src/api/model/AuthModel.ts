@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import { prismaContext } from "../../lib/prismaContext";
 // users
 
@@ -13,10 +13,13 @@ export const usersGet = async (): Promise<User[]> => {
 // auth/register
 
 export const registerUser = async (
-  body: User,
+  userName: string,
+  email: string,
+  isPassword: string,
+  role: Role,
   hashedPassword: string
 ): Promise<User | any> => {
-  let { userName, email, isPassword, role } = body;
+  // let { userName, email, isPassword, role } = body;
   isPassword = hashedPassword;
   const user = await prismaContext.user.create({
     data: {
@@ -43,11 +46,11 @@ export const alreadyUserCheck = async (
 };
 
 export const fetchUserPassword = async (
-  userName: string
+  email: string
 ): Promise<string | undefined> => {
   const resultUser = await prismaContext.user.findFirst({
     where: {
-      userName: userName,
+      email: email,
     },
     select: {
       isPassword: true,

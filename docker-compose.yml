@@ -21,9 +21,9 @@ services:
     build:
       context: ./Docker/next
     ports:
-      - 3030:3030
+      - 3001:3001
     volumes:
-      - ./src:/home/node/node_hobbys/next
+      - ./next:/home/node/node_hobbys/next
     stdin_open: true
     tty: true
 

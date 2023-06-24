@@ -22,6 +22,7 @@ export const authenticateToken = async (
     const token = authHeader.split(" ")[1];
 
     const payload = await verifyToken(token);
+    console.log("role", payload);
 
     const user = prismaContext.user.findUnique({
       where: {

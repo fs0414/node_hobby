@@ -14,7 +14,7 @@ const {
 } = require("../service/AuthService");
 const {
   poolUsersGet,
-  registerPoolUser,
+  // registerPoolUser,
   // cognitoLogin,
 } = require("../service/cognito/index");
 
@@ -35,20 +35,27 @@ export class AuthController {
     try {
       const { userName, email, isPassword, role } = req.body;
 
-      const poolUser = await registerPoolUser(
-        userName,
-        email,
-        isPassword,
-        role
-      );
+      // const poolUser = await registerPoolUser(
+      //   userName,
+      //   email,
+      //   isPassword,
+      //   role
+      // );
 
       const hashedPassword = await hashingPassword(isPassword);
 
-      const user = await registerUser(req.body, hashedPassword);
+      // const user = await registerUser(req.body, hashedPassword);
+      const user = await registerUser(
+        userName,
+        email,
+        isPassword,
+        role,
+        hashedPassword
+      );
 
       if (!user) throw new Error("not register user");
 
-      res.status(201).json({ user, poolUser });
+      res.status(201).json({ user });
     } catch (error: any) {
       res.json({
         message: error.message,
@@ -58,9 +65,9 @@ export class AuthController {
 
   async login(req: Request, res: Response): Promise<void> {
     try {
-      const { userName, isPassword } = req.body;
+      const { email, isPassword } = req.body;
 
-      const existedUserPassword = await fetchUserPassword(userName);
+      const existedUserPassword = await fetchUserPassword(email);
 
       if (existedUserPassword === null) throw new Error("not exited user");
 
@@ -78,7 +85,7 @@ export class AuthController {
 
       // console.log({ accessToken });
 
-      const token = await jwtSign(userName);
+      const token = await jwtSign(email);
 
       if (!token) throw new Error("not create token");
 
