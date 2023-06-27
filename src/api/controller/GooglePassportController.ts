@@ -14,7 +14,7 @@ export class GooglePassportController {
             clientID:
               "756883617351-2599ncd0agh253le925vbrlp65c4ogne.apps.googleusercontent.com",
             clientSecret: "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",
-            callbackURL: "http://localhost:3000/auth/google/callback",
+            callbackURL: "http://localhost:3002/auth/google/callback",
             passReqToCallback: true,
           },
           async (
@@ -87,10 +87,11 @@ export class GooglePassportController {
         passport.authenticate("google", { scope: ["profile"] })
       );
 
+      console.log("connext");
       app.get(
         "/auth/google/callback",
         passport.authenticate("google", {
-          failureRedirect: "http://localhost:3000/",
+          failureRedirect: "http://localhost:3002/",
         }),
         (req: Request, res: Response) => {
           const token = jwt.sign({ userId: req.user }, "your-jwt-secret", {

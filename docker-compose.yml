@@ -6,7 +6,7 @@ services:
     build:
       context: ./Docker/node
     ports:
-      - 3000:3000
+      - 3002:3002
       - 4000:4000
     volumes:
       - ./src:/home/node/node_hobbys/src
@@ -21,7 +21,7 @@ services:
     build:
       context: ./Docker/next
     ports:
-      - 3001:3001
+      - 3031:3031
     volumes:
       - ./next:/home/node/node_hobbys/next
     stdin_open: true

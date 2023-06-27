@@ -2,8 +2,8 @@ import express from "express";
 const apiRouter = express.Router();
 import { GooglePassportController } from "../../api/controller/GooglePassportController";
 
-const passportContext = new GooglePassportController();
+const googlePassportContext = new GooglePassportController();
 
-apiRouter.get("/passport", passportContext.passportLogin);
+apiRouter.get("/google-passport", googlePassportContext.passportLogin);
 
 module.exports = apiRouter;
