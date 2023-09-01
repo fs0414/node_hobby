@@ -35,16 +35,9 @@ export class AuthController {
     try {
       const { userName, email, isPassword, role } = req.body;
 
-      // const poolUser = await registerPoolUser(
-      //   userName,
-      //   email,
-      //   isPassword,
-      //   role
-      // );
 
       const hashedPassword = await hashingPassword(isPassword);
 
-      // const user = await registerUser(req.body, hashedPassword);
       const user = await registerUser(
         userName,
         email,
@@ -69,6 +62,7 @@ export class AuthController {
 
       const existedUserPassword = await fetchUserPassword(email);
 
+      console.log({ existedUserPassword })
       if (existedUserPassword === null) throw new Error("not exited user");
 
       const isMatchUser = await compareCheck(isPassword, existedUserPassword);

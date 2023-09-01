@@ -47,14 +47,12 @@ export const authRegisterRule = [
 ];
 
 export const authLoginRule = [
-  check("userName")
-    .not()
+  check("email")
+     .not()
     .isEmpty()
-    .withMessage("userName is required")
-    .isLength({ min: 3 })
-    .withMessage("userName mast be at least 3 characters")
-    .isLength({ max: 255 })
-    .withMessage("userName mast be at largest 3 characters"),
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("Invalid email"),
   body("isPassword")
     .not()
     .notEmpty()
