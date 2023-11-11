@@ -35,7 +35,6 @@ export class AuthController {
     try {
       const { userName, email, isPassword, role } = req.body;
 
-
       const hashedPassword = await hashingPassword(isPassword);
 
       const user = await registerUser(

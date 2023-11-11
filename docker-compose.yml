@@ -10,22 +10,23 @@ services:
       - 4000:4000
     volumes:
       - ./src:/home/node/node_hobbys/src
+      - ~/.config/nvim:/root/.config/nvim/
     environment:
       - NODE_ENV=development
     command: yarn init && yarn install --frozen-lockfile
     stdin_open: true
     tty: true
 
-  next:
-    container_name: next
-    build:
-      context: ./Docker/next
-    ports:
-      - 3031:3031
-    volumes:
-      - ./next:/home/node/node_hobbys/next
-    stdin_open: true
-    tty: true
+      #  next:
+      #    container_name: next
+      #    build:
+      #      context: ./Docker/next
+      #    ports:
+      #      - 3031:3031
+      #    volumes:
+      #      - ./next:/home/node/node_hobbys/next
+      #    stdin_open: true
+      #    tty: true
 
   mysql:
     container_name: express_mysql

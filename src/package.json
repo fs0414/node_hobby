@@ -37,7 +37,9 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.5.0",
+    "@aws-sdk/client-api-gateway": "^3.398.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.315.0",
+    "@aws-sdk/client-lambda": "^3.398.0",
     "@aws-sdk/client-s3": "^3.301.0",
     "@aws-sdk/types": "^3.296.0",
     "@prisma/client": "^4.11.0",
@@ -56,6 +58,7 @@
     "graphql": "^16.6.0",
     "jsonwebtoken": "^9.0.0",
     "node-cron": "^3.0.2",
+    "openai": "^4.17.4",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
