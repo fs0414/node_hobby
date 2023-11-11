@@ -8,5 +8,6 @@ router.use("/api", require("./routes/s3"));
 router.use("/api", require("./routes/googlePassport"));
 router.use("/api", require("./routes/product"));
 router.use("/api", require("./routes/product"));
+router.use("/api", require("./routes/lambda"));
 
 module.exports = router;

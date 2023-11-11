@@ -29,7 +29,7 @@ export const registerUser = async (
       role,
     },
   });
-  //localhost:3000/auth/google
+  
   http: return user;
 };
 
