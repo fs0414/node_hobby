@@ -5,7 +5,7 @@ import {
   getComment,
   storeComment,
   updateComment,
-} from "../model/CommentModel";
+} from "../repository/CommentRepository";
 
 export class CommentController {
   async getComments(_req: Request, res: Response): Promise<void> {

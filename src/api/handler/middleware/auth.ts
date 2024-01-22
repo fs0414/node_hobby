@@ -18,11 +18,9 @@ export const authenticateToken = async (
       throw new Error("401 authorization not");
     }
 
-    // token bearer is split
     const token = authHeader.split(" ")[1];
 
     const payload = await verifyToken(token);
-    console.log("role", payload);
 
     const user = prismaContext.user.findUnique({
       where: {
@@ -33,9 +31,7 @@ export const authenticateToken = async (
       },
     });
 
-    if (!user) {
-      throw new Error("authenticate not");
-    }
+    if (!user) throw new Error("authenticate not");
 
     next();
   } catch (error: any) {

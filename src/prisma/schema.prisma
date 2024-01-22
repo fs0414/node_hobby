@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,40 +8,45 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  userName String @unique
-  email String @unique
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  role       Role      @default(USER)
   isPassword String
-  role Role @default(USER)
-  posts Post[]
+  userName   String    @unique
+  comments   Comment[]
+  posts      Post[]
+}
+
+model googleUser {
+  id       Int    @id @default(autoincrement())
+  userName String
+  googleId String @unique
+}
+
+model Post {
+  id       Int       @id @default(autoincrement())
+  title    String
+  content  String
+  userId   Int
   comments Comment[]
+  user     User      @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Post_userId_fkey")
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  content String
+  userId  Int
+  postId  Int
+  post    Post   @relation(fields: [postId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+
+  @@index([postId], map: "Comment_postId_fkey")
+  @@index([userId], map: "Comment_userId_fkey")
 }
 
 enum Role {
   USER
   ADMIN
-}
-
-model googleUser {
- id Int @id @default(autoincrement())
- userName String
- googleId String @unique
-}
-
-model Post {
-  id Int @id @default(autoincrement())
-  title String
-  content String
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  comments Comment[]
-}
-
-model Comment {
-  id Int @id @default(autoincrement())
-  content String
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  postId Int
-  post Post @relation(fields: [postId], references: [id])
 }

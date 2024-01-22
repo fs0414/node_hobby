@@ -2,35 +2,34 @@
 import { Request, Response } from "express";
 import {
   getPosts,
-  storePost,
+  // storePost,
   updatePost,
   deletePost,
-} from "../model/PostModel";
-import cron from "node-cron";
+} from "../repository/PostRepository";
 import { prismaContext } from "../../lib/prismaContext";
+import cron from "node-cron";
+import { CratePostRepository } from "../repository/post/PostCreateRepository"
 
 export class PostController {
   async getPosts(_req: Request, res: Response): Promise<void> {
     const posts = await getPosts();
 
-    res.status(200).json({
-      message: "get posts success",
-      posts,
-    });
+    res.status(200).json(posts);
   }
 
   async createPost(req: Request, res: Response): Promise<void> {
     try {
       const { title, content, userId } = req.body;
-      const post = await storePost(title, content, userId);
+      // const post = await storePost(title, content, userId);
+      const post = await new CratePostRepository(title, content, userId).run()
 
       if (!post) {
         throw new Error("not create post");
       }
-      res.status(201).json({
-        message: "create post success",
-        post,
-      });
+
+      console.log({ post })
+
+      res.status(201).json(post);
     } catch (error: any) {
       res.status(401).json({
         message: error.message,
